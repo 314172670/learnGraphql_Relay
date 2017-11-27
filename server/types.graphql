@@ -1,0 +1,31 @@
+
+
+type User @model {
+  id: ID! @isUnique
+  name: String
+  dateOfBirth: DateTime
+  
+}
+
+type Post @model {
+  id: ID! @isUnique # read-only (managed by Graphcool)
+  createdAt: DateTime! # read-only (managed by Graphcool)
+  updatedAt: DateTime! # read-only (managed by Graphcool)
+
+  description: String!
+  imageUrl: String!
+}
+
+type Meetup @model {
+  id: ID! @isUnique
+  name: String!
+  city: String!
+  members: [Member!]! @relation(name: "MeetupMembers")
+}
+
+type Member @model {
+  id: ID! @isUnique
+  email: String! @isUnique
+  name: String!
+  meetups: [Meetup!]! @relation(name: "MeetupMembers")
+}
